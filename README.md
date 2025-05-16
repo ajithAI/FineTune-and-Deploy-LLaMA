@@ -39,7 +39,7 @@ huggingface-cli download meta-llama/Llama-3.2-3B-Instruct --exclude "original/*"
 
 ### Run Fine-Tuning Sample Code : 
 ```
-python3 run_finetune_alpaca.py --pre-trained-model-path /home/user/Meta-Llama-3.2-3B
+python3 run_finetune_alpaca.py --pre-trained-model-path /home/user/Meta-Llama-3.2-3B-Instruct
 ```
 
 ### Fine-Tuning Result : 
@@ -57,7 +57,7 @@ python3 run_finetune_alpaca.py --pre-trained-model-path /home/user/Meta-Llama-3.
 
 ### Saved Model : 
 ```
-root@user:/home/user/FineTuneAjith# ls -l -h Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-375
+root@user:/home/user/FineTuneAjith# ls -l -h Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-3750
 total 36G
 -rw-r--r-- 1 root root 3.8K May 16 06:14 chat_template.jinja
 -rw-r--r-- 1 root root  877 May 16 06:14 config.json
@@ -99,7 +99,7 @@ git submodule update --init --recursive
 ### Optimize Model and Generate TRT-LLM Engine
 ```
 cd /home/user/tensorrtllm_backend/tensorrt_llm/examples/llama
-python3 convert_checkpoint.py --model_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-375 \
+python3 convert_checkpoint.py --model_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-3750 \
       --output_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith-CHECKPOINT \
       --dtype bfloat16 --tp_size 1
 

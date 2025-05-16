@@ -11,7 +11,7 @@
 ###### Replace this with your Work Space Path. Minimum Disk Space Required : 400GB
 
 ```
-export HOSTSPACE="/mnt/Scratch_space"  
+export HOSTSPACE="/mnt/Scratch_space/ajith"  
 ```
 ### Run the Docker Container : 
 
@@ -19,7 +19,7 @@ export HOSTSPACE="/mnt/Scratch_space"
 sudo docker pull huggingface/transformers-pytorch-gpu:latest
 sudo docker run --runtime=nvidia --name=Ajith_Transformers_Latest_8xGPU --net=host --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 \
 --cap-add=SYS_PTRACE --cap-add=SYS_ADMIN --cap-add=DAC_READ_SEARCH --security-opt seccomp=unconfined --gpus=all -it \ 
--v /mnt/Scratch_space:/home/user -w /home/user huggingface/transformers-pytorch-gpu:latest bash
+-v /mnt/Scratch_space/ajith:/home/user -w /home/user huggingface/transformers-pytorch-gpu:latest bash
 ```
 
 ### Inside the Container : 

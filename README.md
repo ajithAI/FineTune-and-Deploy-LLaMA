@@ -54,7 +54,7 @@ python3 run_finetune.py --pre-trained-model-path /home/user/Meta-Llama-3.2-3B
 ```
 ### Model Saved at : 
 ```
-root@user:/home/user/FineTuneAjith# ls -l -h Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-3750
+root@user:/home/user/FineTuneAjith# ls -l -h Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-375
 total 36G
 -rw-r--r-- 1 root root 3.8K May 16 06:14 chat_template.jinja
 -rw-r--r-- 1 root root  877 May 16 06:14 config.json

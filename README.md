@@ -76,7 +76,9 @@ total 36G
 -rw-r--r-- 1 root root 6.1K May 16 06:14 training_args.bin
 ```
 
-### Optimize the Fine-Tuned Model with TRT-LLM : 
+-----
+
+### Optimize Fine-Tuned Model with TRT-LLM the Deploy with Triton Server : 
 
 ### Create Triton TRT-LLM Docker Container : 
 ```
@@ -94,7 +96,7 @@ apt-get update && apt-get install git-lfs -y --no-install-recommends
 git lfs install
 git submodule update --init --recursive
 ```
-
+### Optimize Model and Generate TRT-LLM Engine
 ```
 cd /home/user/tensorrtllm_backend/tensorrt_llm/examples/llama
 python3 convert_checkpoint.py --model_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-375 \

@@ -71,5 +71,39 @@ total 36G
 -rw-r--r-- 1 root root  50K May 16 06:14 tokenizer_config.json
 -rw-r--r-- 1 root root 2.4K May 16 06:14 trainer_state.json
 -rw-r--r-- 1 root root 6.1K May 16 06:14 training_args.bin
-root@user:/home/user/FineTuneAjith#
 ```
+
+### Optimize the Fine-Tuned Model with TRT-LLM : 
+
+### Create Triton TRT-LLM Docker Container : 
+```
+sudo docker run -it --net host --shm-size=2g \
+    --ulimit memlock=-1 --ulimit stack=67108864 --gpus '"device=0"' \
+    -v /mnt/Scratch_space/ajith/:/home/user -w /home/user --name Ajith_Triton_Server \
+    nvcr.io/nvidia/tritonserver:24.07-trtllm-python-py3 bash
+```
+### Install Tensor-RT LLM Backend : 
+```
+git clone https://github.com/triton-inference-server/tensorrtllm_backend.git  --branch v0.19.0
+cd tensorrtllm_backend
+# Install git-lfs if needed
+apt-get update && apt-get install git-lfs -y --no-install-recommends
+git lfs install
+git submodule update --init --recursive
+```
+
+```
+cd /home/user/tensorrtllm_backend/tensorrt_llm/examples/llama
+python3 convert_checkpoint.py --model_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-3750 \
+      --output_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith-CHECKPOINT \
+      --dtype bfloat16 --tp_size 1
+
+trtllm-build --checkpoint_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith-CHECKPOINT \
+    --output_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith-TRT-Engine --gemm_plugin auto
+```
+
+
+### Triton Server Initiation 
+![{F6943BFE-B11B-4AF1-8E22-99BCE4BB4D07}](https://github.com/user-attachments/assets/669f2ee4-f878-4c12-a5a7-359145dd1b9f)
+
+

@@ -94,7 +94,7 @@ git submodule update --init --recursive
 
 ```
 cd /home/user/tensorrtllm_backend/tensorrt_llm/examples/llama
-python3 convert_checkpoint.py --model_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-3750 \
+python3 convert_checkpoint.py --model_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-375 \
       --output_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith-CHECKPOINT \
       --dtype bfloat16 --tp_size 1
 
@@ -104,6 +104,35 @@ trtllm-build --checkpoint_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruc
 
 
 ### Triton Server Initiation 
+```
+TOKENIZER_DIR=/home/user/Meta-Llama-3.2-3B-Instruct
+TOKENIZER_TYPE=auto
+ENGINE_DIR=/home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith-TRT-Engine
+DECOUPLED_MODE=false
+MODEL_FOLDER=/opt/tritonserver/inflight_batcher_llm
+MAX_BATCH_SIZE=4
+INSTANCE_COUNT=1
+MAX_QUEUE_DELAY_MS=10000
+TRITON_BACKEND=tensorrtllm
+LOGITS_DATATYPE="TYPE_FP32"
+FILL_TEMPLATE_SCRIPT=/home/user/tensorrtllm_backend/tools/fill_template.py
+
+python3 ${FILL_TEMPLATE_SCRIPT} -i ${MODEL_FOLDER}/preprocessing/config.pbtxt tokenizer_dir:${TOKENIZER_DIR},triton_max_batch_size:${MAX_BATCH_SIZE},preprocessing_instance_count:${INSTANCE_COUNT} 
+python3 ${FILL_TEMPLATE_SCRIPT} -i ${MODEL_FOLDER}/postprocessing/config.pbtxt tokenizer_dir:${TOKENIZER_DIR},triton_max_batch_size:${MAX_BATCH_SIZE},postprocessing_instance_count:${INSTANCE_COUNT}
+python3 ${FILL_TEMPLATE_SCRIPT} -i ${MODEL_FOLDER}/tensorrt_llm_bls/config.pbtxt triton_max_batch_size:${MAX_BATCH_SIZE},decoupled_mode:${DECOUPLED_MODE},bls_instance_count:${INSTANCE_COUNT},logits_datatype:${LOGITS_DATATYPE}
+python3 ${FILL_TEMPLATE_SCRIPT} -i ${MODEL_FOLDER}/ensemble/config.pbtxt triton_max_batch_size:${MAX_BATCH_SIZE},logits_datatype:${LOGITS_DATATYPE}
+python3 ${FILL_TEMPLATE_SCRIPT} -i ${MODEL_FOLDER}/tensorrt_llm/config.pbtxt triton_backend:${TRITON_BACKEND},triton_max_batch_size:${MAX_BATCH_SIZE},decoupled_mode:${DECOUPLED_MODE},engine_dir:${ENGINE_DIR},max_queue_delay_microseconds:${MAX_QUEUE_DELAY_MS},batching_strategy:inflight_fused_batching,encoder_input_features_data_type:TYPE_FP16,logits_datatype:${LOGITS_DATATYPE}
+```
+```
+python3 /home/user/tensorrtllm_backend/scripts/launch_triton_server.py --world_size=1 --model_repo=/opt/tritonserver/inflight_batcher_llm
+```
 ![{F6943BFE-B11B-4AF1-8E22-99BCE4BB4D07}](https://github.com/user-attachments/assets/669f2ee4-f878-4c12-a5a7-359145dd1b9f)
 
 
+### Send Request to Triton Server : 
+```
+curl -X POST localhost:8000/v2/models/ensemble/generate -d '{"text_input": "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n ### Instruction:\n What are the three primary colors? ", "max_tokens": 500, "bad_words": "", "stop_words": "", "pad_id": 2, "end_id": 2}'
+```
+
+### Result : 
+![{07E02FF6-5835-4EC4-AD2B-3DC83642E77F}](https://github.com/user-attachments/assets/77bfc69c-f5b5-4045-b56e-3e42ceac7a17)

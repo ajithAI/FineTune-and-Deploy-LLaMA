@@ -39,7 +39,7 @@ huggingface-cli download meta-llama/Llama-3.2-3B-Instruct --exclude "original/*"
 
 ### Run Fine-Tuning Sample Code : 
 ```
-python3 run_finetune.py --pre-trained-model-path /home/user/Meta-Llama-3.2-3B
+python3 run_finetune_alpaca.py --pre-trained-model-path /home/user/Meta-Llama-3.2-3B
 ```
 
 ### Fine-Tuning Result : 

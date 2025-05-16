@@ -144,3 +144,8 @@ curl -X POST localhost:8000/v2/models/ensemble/generate -d '{"text_input": "Belo
 
 ### Result : 
 ![{07E02FF6-5835-4EC4-AD2B-3DC83642E77F}](https://github.com/user-attachments/assets/77bfc69c-f5b5-4045-b56e-3e42ceac7a17)
+
+### Validate the Fine-Tuning : 
+###### The original Model doesn't actually produce the response with "Hello AJith". 
+###### While Fine-Tuning, with the formatting_prompts_func, we trained the LLM to respond with "Hello Ajith, " 
+###### And hence, when infering with Triton Server, the optimized Fine-Tuned model respoding with "Hello Ajith, " 

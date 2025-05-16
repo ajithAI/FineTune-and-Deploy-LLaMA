@@ -41,6 +41,7 @@ huggingface-cli download meta-llama/Llama-3.2-3B-Instruct --exclude "original/*"
 ```
 python3 run_finetune_alpaca.py --pre-trained-model-path /home/user/Meta-Llama-3.2-3B
 ```
+##### Fine-Tuned Model will get saved at : ```/home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith```
 
 ### Fine-Tuning Result : 
 ```

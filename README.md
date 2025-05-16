@@ -54,18 +54,6 @@ python3 run_finetune.py --pre-trained-model-path /home/user/Meta-Llama-3.2-3B
 ```
 ### Model Saved at : 
 ```
-root@user:/home/user/FineTuneAjith# ls -l -h Meta-Llama-3.2-3B-Instruct-Ajith
-total 40K
-drwxr-xr-x 2 root root 4.0K May 16 05:36 checkpoint-1000
-drwxr-xr-x 2 root root 4.0K May 16 05:43 checkpoint-1500
-drwxr-xr-x 2 root root 4.0K May 16 05:50 checkpoint-2000
-drwxr-xr-x 2 root root 4.0K May 16 05:57 checkpoint-2500
-drwxr-xr-x 2 root root 4.0K May 16 06:04 checkpoint-3000
-drwxr-xr-x 2 root root 4.0K May 16 06:10 checkpoint-3500
-drwxr-xr-x 2 root root 4.0K May 16 06:14 checkpoint-3750
-drwxr-xr-x 2 root root 4.0K May 16 05:29 checkpoint-500
--rw-r--r-- 1 root root  824 May 16 06:14 emissions.csv
-drwxr-xr-x 3 root root 4.0K May 16 05:22 runs
 root@user:/home/user/FineTuneAjith# ls -l -h Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-3750
 total 36G
 -rw-r--r-- 1 root root 3.8K May 16 06:14 chat_template.jinja

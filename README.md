@@ -41,7 +41,6 @@ huggingface-cli download meta-llama/Llama-3.2-3B-Instruct --exclude "original/*"
 ```
 python3 run_finetune_alpaca.py --pre-trained-model-path /home/user/Meta-Llama-3.2-3B
 ```
-##### Fine-Tuned Model will get saved at : ```/home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith```
 
 ### Fine-Tuning Result : 
 ```
@@ -53,7 +52,10 @@ python3 run_finetune_alpaca.py --pre-trained-model-path /home/user/Meta-Llama-3.
 [codecarbon INFO @ 06:14:27] Energy consumed for All CPU : 0.066495 kWh
 100%|██████████████████████████████████████████████████████████| 3750/3750 [51:45<00:00,  1.21it/s]
 ```
-### Model Saved at : 
+
+#### Fine-Tuned Model will get saved at : ```/home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruct-Ajith```
+
+### Saved Model : 
 ```
 root@user:/home/user/FineTuneAjith# ls -l -h Meta-Llama-3.2-3B-Instruct-Ajith/checkpoint-375
 total 36G

@@ -103,7 +103,7 @@ trtllm-build --checkpoint_dir /home/user/FineTuneAjith/Meta-Llama-3.2-3B-Instruc
 ```
 
 
-### Triton Server Initiation 
+### Triton Server Setup 
 ```
 TOKENIZER_DIR=/home/user/Meta-Llama-3.2-3B-Instruct
 TOKENIZER_TYPE=auto
@@ -123,6 +123,9 @@ python3 ${FILL_TEMPLATE_SCRIPT} -i ${MODEL_FOLDER}/tensorrt_llm_bls/config.pbtxt
 python3 ${FILL_TEMPLATE_SCRIPT} -i ${MODEL_FOLDER}/ensemble/config.pbtxt triton_max_batch_size:${MAX_BATCH_SIZE},logits_datatype:${LOGITS_DATATYPE}
 python3 ${FILL_TEMPLATE_SCRIPT} -i ${MODEL_FOLDER}/tensorrt_llm/config.pbtxt triton_backend:${TRITON_BACKEND},triton_max_batch_size:${MAX_BATCH_SIZE},decoupled_mode:${DECOUPLED_MODE},engine_dir:${ENGINE_DIR},max_queue_delay_microseconds:${MAX_QUEUE_DELAY_MS},batching_strategy:inflight_fused_batching,encoder_input_features_data_type:TYPE_FP16,logits_datatype:${LOGITS_DATATYPE}
 ```
+
+### Triton Server Initiation 
+
 ```
 python3 /home/user/tensorrtllm_backend/scripts/launch_triton_server.py --world_size=1 --model_repo=/opt/tritonserver/inflight_batcher_llm
 ```

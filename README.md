@@ -31,6 +31,13 @@ pip install --upgrade transformers
 ```
 apt-get update -y && apt-get install vim wget -y
 ```
+
+### Download the LLaMA 3.2 3B Model 
 ```
 huggingface-cli download meta-llama/Llama-3.2-3B-Instruct --exclude "original/*" --local-dir Meta-Llama-3.2-3B
+```
+
+### Run Fine-Tuning Sample Code : 
+```
+python3 run_finetune.py
 ```
